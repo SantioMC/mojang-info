@@ -10,7 +10,7 @@ export default function UserPage({ userInfo }) {
 			<Grid.Container justify='center'>
 				<Grid.Container gap={5} xs={8} justify='center'>
 					<Spacer y={3} />
-					<Grid xs={6}>
+					<Grid xs={6} className='centered'>
 						<h1 className={'title'}>
 							Results for <span className='colored blue'>{userInfo.username}</span>
 						</h1>
