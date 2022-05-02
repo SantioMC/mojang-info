@@ -1,7 +1,7 @@
 import { Button, Card, Grid, Input, Spacer, Loading } from '@nextui-org/react';
 import { useState } from 'react';
-import Result from "../Components/Result"
-import Meta from "../Components/Meta";
+import Result from '../Components/Result';
+import Meta from '../Components/Meta';
 
 export default function Home() {
 	const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Meta/>
+			<Meta />
 
 			<form>
 				<Grid.Container justify='center'>
