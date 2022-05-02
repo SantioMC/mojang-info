@@ -2,14 +2,21 @@ import { Button, Card, Grid, Input, Spacer, Loading } from '@nextui-org/react';
 import { useState } from 'react';
 import Result from '../Components/Result';
 import Meta from '../Components/Meta';
+import { useRouter } from 'next/router';
 
 export default function Home() {
-	const [username, setUsername] = useState('');
+	const router = useRouter();
+	const { names } = router.query;
+
+	const predefined = (names || [null])[0];
+	const [username, setUsername] = useState(predefined ?? '');
 	const [data, setData] = useState({});
 	const [loading, setLoading] = useState(false);
 
+	if (predefined && !loading && Object.keys(data).length === 0) fetchData(null);
+
 	async function fetchData(e) {
-		e.preventDefault();
+		if (e) e.preventDefault();
 		setLoading(true);
 		const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${username}`);
 		const data = await request.json();
@@ -65,4 +72,14 @@ export default function Home() {
 			</form>
 		</>
 	);
+}
+
+export async function getServerSideProps({ params }) {
+	const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${params.username}`);
+	const data = await request.json();
+	return {
+		props: {
+			userInfo: data
+		}
+	};
 }
