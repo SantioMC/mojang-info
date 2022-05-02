@@ -15,7 +15,7 @@ export default function Home(props) {
 
 	return (
 		<>
-			{Object.keys(data).length === 0 || data.error ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}` : '')} />}
+			{Object.keys(data).length === 0 || data.error ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}\n` : '') + `Previous Names: ${data.username_history.length - 1}`} />}
 
 			<form>
 				<Grid.Container justify='center'>
@@ -57,7 +57,6 @@ export async function getServerSideProps({ params }) {
 	const names = params.names;
 	const predefined = (names || [null])[0];
 
-	console.log(predefined);
 	if (!predefined) return { props: { userInfo: {} } };
 
 	const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${predefined}`);

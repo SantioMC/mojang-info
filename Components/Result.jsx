@@ -64,7 +64,13 @@ export default function Result(props) {
 					<SLink text={'Skin: '} url={data.textures.skin.url} />
 					<br />
 					<span className='inline'>
-						<Text h4>Previous Names: </Text>
+						<Text h4>
+							Previous Names{' '}
+							<Text className='centered inline' color='warning'>
+								({data.username_history.length})
+							</Text>
+							:
+						</Text>
 					</span>
 					<br />
 					{data.username_history.map((name) => (
