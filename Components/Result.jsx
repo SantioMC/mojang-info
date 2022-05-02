@@ -63,8 +63,6 @@ export default function Result(props) {
 					<br />
 					<SLink text={'Skin: '} url={data.textures.skin.url} />
 					<br />
-					<SLink text={'Share: '} url={`https://mojang.santio.me/${data.username}`} />
-					<br />
 					<span className='inline'>
 						<Text h4>Previous Names: </Text>
 					</span>

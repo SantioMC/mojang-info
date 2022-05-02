@@ -2,31 +2,20 @@ import { Button, Card, Grid, Input, Spacer, Loading } from '@nextui-org/react';
 import { useState } from 'react';
 import Result from '../Components/Result';
 import Meta from '../Components/Meta';
-import { useRouter } from 'next/router';
 
-export default function Home() {
-	const router = useRouter();
-	const { names } = router.query;
-
-	const predefined = (names || [null])[0];
+export default function Home(props) {
+	const predefined = null;
+	var data = props.userInfo;
 	const [username, setUsername] = useState(predefined ?? '');
-	const [data, setData] = useState({});
-	const [loading, setLoading] = useState(false);
-
-	if (predefined && !loading && Object.keys(data).length === 0) fetchData(null);
 
 	async function fetchData(e) {
-		if (e) e.preventDefault();
-		setLoading(true);
-		const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${username}`);
-		const data = await request.json();
-		setData(data);
-		setLoading(false);
+		e.preventDefault();
+		location.href = '/' + username;
 	}
 
 	return (
 		<>
-			{Object.keys(data).length === 0 ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`Username: ${data.username}\n` + `UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}` : '')} />}
+			{Object.keys(data).length === 0 ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}` : '')} />}
 
 			<form>
 				<Grid.Container justify='center'>
@@ -55,17 +44,7 @@ export default function Home() {
 						<Spacer y={6} />
 						<Grid xs={6}>
 							<Spacer y={3} />
-							{loading ? (
-								<Card shadow='false' className='centered'>
-									<Spacer y={4} />
-									<Grid.Container justify='center' alignItems='center'>
-										<Loading type='points' />
-									</Grid.Container>
-									<Spacer y={4} />
-								</Card>
-							) : (
-								<Result data={data} />
-							)}
+							<Result data={data} />
 						</Grid>
 					</Grid.Container>
 				</Grid.Container>
@@ -75,7 +54,13 @@ export default function Home() {
 }
 
 export async function getServerSideProps({ params }) {
-	const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${params.username}`);
+	const names = params.names;
+	const predefined = (names || [null])[0];
+
+	console.log(predefined);
+	if (!predefined) return { props: { userInfo: {} } };
+
+	const request = await fetch(`https://api.ashcon.app/mojang/v2/user/${predefined}`);
 	const data = await request.json();
 	return {
 		props: {
