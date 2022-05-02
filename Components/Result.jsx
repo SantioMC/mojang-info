@@ -1,5 +1,19 @@
 import {Card, Container, Grid, Link, Spacer, Text} from "@nextui-org/react";
 
+// Show link
+function SLink(props) {
+    return (
+        <span className='inline'>
+            <Text h4>{props.text}</Text>
+            <Text h4 color='success'>
+                <Link icon href={props.url}>
+                    {props.linkText ?? "Click Here"}
+                </Link>
+            </Text>
+        </span>
+    )
+}
+
 export default function Result(props) {
     const data = props.data;
 
@@ -47,14 +61,9 @@ export default function Result(props) {
                         )}
 					</span>
                     <br />
-                    <span className='inline'>
-						<Text h4>Skin: </Text>
-						<Text h4 color='success'>
-							<Link icon href={data.textures.skin.url}>
-								Click Here
-							</Link>
-						</Text>
-					</span>
+                    <SLink text={"Skin: "} url={data.textures.skin.url}/>
+                    <br />
+                    <SLink text={"Share: "} url={`https://mojang.santio.me/${data.username}`}/>
                     <br />
                     <span className='inline'>
 						<Text h4>Previous Names: </Text>
