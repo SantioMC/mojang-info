@@ -15,7 +15,7 @@ export default function Home(props) {
 
 	return (
 		<>
-			{Object.keys(data).length === 0 ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}` : '')} />}
+			{Object.keys(data).length === 0 || data.error ? <Meta /> : <Meta title={`${data.username} | Mojang Info`} ogTitle={data.username} description={`UUID: ${data.uuid}\n` + (data.created_at ? `Created at: ${data.created_at}` : '')} />}
 
 			<form>
 				<Grid.Container justify='center'>
