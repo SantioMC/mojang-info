@@ -14,3 +14,33 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.container {
+	margin: 3% 10% 0% 10%;
+}
+
+.centered { justify-content: center; align-self: center; }
+.inline { display: inline-flex; gap: 0.5rem; }
+
+.title {
+	text-align: center;
+}
+
+.colored {
+	-webkit-text-fill-color: transparent;
+}
+
+.colored.blue {
+	background: -webkit-linear-gradient(rgb(68, 71, 221), rgb(68, 147, 221));
+	-webkit-background-clip: text;
+}
+
+.colored.red {
+	background: -webkit-linear-gradient(rgb(221, 68, 68), rgb(221, 111, 68));
+	-webkit-background-clip: text;
+}
+
+.colored.green {
+	background: -webkit-linear-gradient(rgb(68, 221, 76), rgb(122, 221, 68));
+	-webkit-background-clip: text;
+}
